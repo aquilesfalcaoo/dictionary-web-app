@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+//* COLOR NAMES
+
+$white: #ffffff;
+$purple: #a445ed;
+$red: #ff5252;
+$black-400: #3a3a3a;
+$black-500: #2d2d2d;
+$black-700: #1f1f1f;
+$black-800: #050505;
+$gray-400: #050505;
+$gray-500: #3a3a3a;
+$gray-700: #838383;
+
+//* FONT
+
+html,
+body {
+  font-family: "Inter", sans-serif;
+}
