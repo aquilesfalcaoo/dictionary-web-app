@@ -5,4 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+  showDropdown = () => {
+    const dropdown = document.querySelector('.dropdown-content');
+    dropdown?.classList.toggle('active');
+  };
+}

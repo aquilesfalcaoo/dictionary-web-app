@@ -1,0 +1,101 @@
+@import "../styles.scss";
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: 3rem auto;
+  .content-header {
+    display: flex;
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      & .arrow-down {
+        display: flex;
+        gap: 0.8rem;
+      }
+      & span {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        user-select: none;
+      }
+      & .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: $white;
+        box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 1rem;
+        margin-top: 10px;
+        right: 0;
+        padding: 1rem;
+        z-index: 1;
+        cursor: pointer;
+        & span {
+          max-width: fit-content;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 18px;
+          &:hover {
+            color: $purple;
+          }
+        }
+      }
+    }
+    .border {
+      border-right: 2px solid $gray-500;
+      padding: 0 0.5rem;
+    }
+    .dark-mode {
+      display: flex;
+      gap: 20px;
+      & label {
+        cursor: pointer;
+        width: 40px;
+        height: 20px;
+        background: $gray-700;
+        display: block;
+        border-radius: 100px;
+        position: relative;
+        &:after {
+          content: "";
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          width: 14px;
+          height: 14px;
+          background: #fff;
+          border-radius: 90px;
+          transition: 0.3s;
+        }
+      }
+      & input[type="checkbox"] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+      }
+      & input {
+        &:checked + label {
+          background: $purple;
+        }
+        &:checked + label:after {
+          left: calc(100% - 3px);
+          transform: translateX(-100%);
+        }
+      }
+      & img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+.active {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1rem;
+  width: 183px;
+}
