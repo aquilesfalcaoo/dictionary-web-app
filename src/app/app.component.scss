@@ -6,6 +6,7 @@ header {
   align-items: center;
   max-width: 960px;
   margin: 3rem auto;
+  padding: 0 1.5rem;
   .content-header {
     display: flex;
     .dropdown {
@@ -96,6 +97,7 @@ header {
 .content-main {
   max-width: 960px;
   margin: 0 auto;
+  padding: 0 1.5rem;
   .search {
     position: relative;
     & input {
@@ -109,6 +111,7 @@ header {
       font-style: normal;
       font-weight: 700;
       font-size: 20px;
+      caret-color: $purple;
       &::-webkit-search-cancel-button {
         display: none;
       }
@@ -130,6 +133,27 @@ header {
       padding: 0.5rem;
       cursor: pointer;
     }
+  }
+}
+
+.not-allowed {
+  cursor: not-allowed !important;
+}
+
+.empty-input {
+  border: 1px solid $red !important;
+  &:focus {
+    outline: 1px solid transparent !important;
+  }
+}
+
+.error-message {
+  margin-top: 8px;
+  & small {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: $red;
   }
 }
 

@@ -25,10 +25,26 @@
   </div>
 </header>
 <main class="content-main">
-  <div class="search">
-    <input type="search" placeholder="Search for any word..." />
-    <div class="search-word">
+  <form class="search" [formGroup]="form">
+    <input
+      type="search"
+      formControlName="word"
+      placeholder="Search for any word..."
+      [ngClass]="{ 'empty-input' : form.get('word')?.errors?.['required'] && form.get('word')?.touched }"
+    />
+    <ng-container
+      *ngIf="form.get('word')?.errors?.['required'] && form.get('word')?.touched"
+    >
+      <div class="error-message">
+        <small>Whoops, can't be empty…</small>
+      </div>
+    </ng-container>
+    <figure
+      class="search-word"
+      (click)="searchWord()"
+      [ngClass]="{ 'not-allowed': !form.get('word')?.value }"
+    >
       <img src="../assets/images/icon-search.svg" alt="Search" />
-    </div>
-  </div>
+    </figure>
+  </form>
 </main>
