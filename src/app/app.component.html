@@ -5,7 +5,7 @@
   <div class="content-header">
     <div class="dropdown">
       <figure class="arrow-down" (click)="showDropdown()">
-        <span>Sans Serif</span>
+        <span id="teste">Sans Serif</span>
         <img src="../assets/images/icon-arrow-down.svg" alt="arrow down" />
       </figure>
       <div class="dropdown-content">
@@ -17,7 +17,7 @@
     <div class="border"></div>
     <div class="dark-mode">
       <input type="checkbox" id="switch" />
-      <label for="switch"></label>
+      <label class="switch" for="switch" (click)="toggleTheme()"></label>
       <figure>
         <img src="../assets/images/icon-moon.svg" alt="Dark mode" />
       </figure>
@@ -39,11 +39,7 @@
         <small>Whoops, can't be empty…</small>
       </div>
     </ng-container>
-    <figure
-      class="search-word"
-      (click)="searchWord()"
-      [ngClass]="{ 'not-allowed': !form.get('word')?.value }"
-    >
+    <figure class="search-word" (click)="searchWord()">
       <img src="../assets/images/icon-search.svg" alt="Search" />
     </figure>
   </form>
