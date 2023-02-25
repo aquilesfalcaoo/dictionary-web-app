@@ -33,7 +33,7 @@ export class AppComponent implements OnDestroy {
       next: (res) => {
         console.log(res);
       },
-      error: (error: HttpErrorResponse) => console.error(error),
+      error: (error: HttpErrorResponse) => console.log(error),
       complete: () => console.log('Observable completado.'),
     });
   };
