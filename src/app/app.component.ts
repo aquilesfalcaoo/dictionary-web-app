@@ -58,7 +58,6 @@ export class AppComponent {
       )
       .subscribe(res => {
         this.word$.next(res);
-        console.log(this.word$);
       });
   };
 }
