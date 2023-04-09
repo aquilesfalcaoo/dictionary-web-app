@@ -40,7 +40,7 @@
         <small>Whoops, can't be empty…</small>
       </div>
     </ng-container>
-    <figure class="search-word">
+    <figure class="search-word" (click)="searchWordOnClick()">
       <img src="../assets/images/icon-search.svg" alt="Search" />
     </figure>
   </form>
@@ -65,6 +65,11 @@
           <source
             *ngIf="dictionary.phonetics[1]?.audio !== ''"
             src="{{ dictionary.phonetics[1]?.audio }}"
+            type="audio/mp3"
+          />
+          <source
+            *ngIf="dictionary.phonetics[2]?.audio !== ''"
+            src="{{ dictionary.phonetics[2]?.audio }}"
             type="audio/mp3"
           />
         </audio>

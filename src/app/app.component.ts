@@ -16,7 +16,6 @@ export class AppComponent {
     word: new FormControl('', Validators.required),
   });
   public showNotFoundContent: boolean = false;
-  public isDarkMode = false;
 
   constructor(private service: DictionaryService) { }
 
@@ -39,18 +38,17 @@ export class AppComponent {
     playSound.play();
   }
 
-  public searchWord = (event: KeyboardEvent) => {
+  public searchWordOnClick() {
+    this.searchWord();
+  }
+
+  public searchWord = (event: KeyboardEvent | null = null) => {
+    if (event && event.key !== 'Enter') return;
     const wordControl = this.form.get('word');
-    const inputElement = event.target as HTMLInputElement;
-    const inputValue = inputElement.value;
-    if (inputValue === "") {
-      this.showNotFoundContent = false;
-    }
     let typedWord: string | undefined;
     if (wordControl instanceof AbstractControl) {
       typedWord = wordControl.value !== null ? wordControl.value : undefined;
     }
-    if (event.key !== 'Enter') return;
     this.service.search(typedWord ?? '')
       .pipe(
         catchError(() => {
