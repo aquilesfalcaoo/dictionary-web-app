@@ -45,8 +45,65 @@
     </figure>
   </form>
   <div *ngIf="word$ | async as word">
-    <div *ngFor="let dictionary of word">
-      <h1>{{ dictionary.word }}</h1>
+    <div class="word-container" *ngFor="let dictionary of word">
+      <div class="word-title">
+        <div class="word-phoenetic">
+          <h1>{{ dictionary.word }}</h1>
+          <span>{{ dictionary.phonetic }}</span>
+        </div>
+        <img src="../assets/images/icon-play.svg" alt="play sound word" />
+      </div>
+      <div class="grammar-content">
+        <div class="part-speech">
+          <small>{{ dictionary.meanings[0]?.partOfSpeech }}</small>
+          <div class="border-only"></div>
+        </div>
+      </div>
+      <div class="meaning-content">
+        <h4>Meaning</h4>
+        <ul>
+          <li>{{ dictionary.meanings[0].definitions[0].definition }}</li>
+          <li>{{ dictionary.meanings[0].definitions[1].definition }}</li>
+          <li>{{ dictionary.meanings[0].definitions[2].definition }}</li>
+        </ul>
+        <div class="meaning-synonyms" *ngIf="dictionary.meanings[0].synonyms.length">
+          <h4>Synonyms</h4>
+          <small>{{ dictionary.meanings[0].synonyms[0] }}</small>
+        </div>
+      </div>
+      <div class="grammar-content">
+        <div class="part-speech">
+          <small>{{ dictionary.meanings[1]?.partOfSpeech }}</small>
+          <div class="border-only"></div>
+        </div>
+      </div>
+      <div class="meaning-content" *ngIf="dictionary.meanings[1]?.definitions">
+        <h4>Meaning</h4>
+        <ul>
+          <li *ngIf="dictionary?.meanings[1]?.definitions[0]">
+            {{ dictionary?.meanings[1]?.definitions[0]?.definition }}
+          </li>
+          <li *ngIf="dictionary?.meanings[1]?.definitions[1]">
+            {{ dictionary?.meanings[1]?.definitions[1]?.definition }}
+          </li>
+          <li *ngIf="dictionary?.meanings[1]?.definitions[2]">
+            {{ dictionary?.meanings[1]?.definitions[2]?.definition }}
+          </li>
+          <p *ngIf="dictionary?.meanings[1]?.definitions[0].example">"{{ dictionary?.meanings[1]?.definitions[0].example }}"</p>
+        </ul>
+      </div>
+      <div class="source">
+        <span>Source</span>
+        <div class="source-link">
+          <a href="{{ dictionary.sourceUrls[0] }}" target="_blank">{{
+            dictionary.sourceUrls[0]
+          }}</a>
+          <img
+            src="../assets/images/icon-new-window.svg"
+            alt="icon new window"
+          />
+        </div>
+      </div>
     </div>
   </div>
   <div
