@@ -1,44 +1,59 @@
 import { DictionaryService } from './service/dictionary.service';
-import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, catchError, of } from 'rxjs';
+import { Dictionary } from './models/dictionary';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
-  public subscription: Subscription = new Subscription();
+export class AppComponent {
+  public word$ = new BehaviorSubject<any>([]);
+  public dictionary!: Dictionary;
   public form = new FormGroup({
     word: new FormControl('', Validators.required),
   });
+  public showNotFoundContent: boolean = false;
 
-  constructor(private service: DictionaryService) {}
+  constructor(private service: DictionaryService) { }
 
   public showDropdown = () => {
     const dropdown = document.querySelector('.dropdown-content');
-    dropdown?.classList.toggle('active');
+    if (dropdown) {
+      dropdown.classList.toggle('active');
+    }
   };
 
   public toggleTheme = () => {
     const body = document.querySelector('body');
-    body?.classList.toggle('black-theme');
+    if (body) {
+      body.classList.toggle('black-theme');
+    }
   };
 
-  public searchWord = () => {
-    const typedWord: any = this.form.get('word')?.value;
-    this.subscription = this.service.search(typedWord).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (error: HttpErrorResponse) => console.log(error),
-      complete: () => console.log('Observable completado.'),
-    });
+  public searchWord = (event: KeyboardEvent) => {
+    const wordControl = this.form.get('word');
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+    if (inputValue === "") {
+      this.showNotFoundContent = false;
+    }
+    let typedWord: string | undefined;
+    if (wordControl instanceof AbstractControl) {
+      typedWord = wordControl.value !== null ? wordControl.value : undefined;
+    }
+    if (event.key !== 'Enter') return;
+    this.service.search(typedWord ?? '')
+      .pipe(
+        catchError(() => {
+          this.showNotFoundContent = true;
+          return of([]);
+        })
+      )
+      .subscribe(res => {
+        this.word$.next(res);
+      });
   };
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }

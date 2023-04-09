@@ -4,10 +4,10 @@
   </figure>
   <div class="content-header">
     <div class="dropdown">
-      <figure class="arrow-down" (click)="showDropdown()">
+      <div class="arrow-down" (click)="showDropdown()">
         <span id="teste">Sans Serif</span>
         <img src="../assets/images/icon-arrow-down.svg" alt="arrow down" />
-      </figure>
+      </div>
       <div class="dropdown-content">
         <span>Sans Serif</span>
         <span>Serif</span>
@@ -29,6 +29,7 @@
     <input
       type="search"
       formControlName="word"
+      (keyup)="searchWord($event)"
       placeholder="Search for any word..."
       [ngClass]="{ 'empty-input' : form.get('word')?.errors?.['required'] && form.get('word')?.touched }"
     />
@@ -39,8 +40,26 @@
         <small>Whoops, can't be empty…</small>
       </div>
     </ng-container>
-    <figure class="search-word" (click)="searchWord()">
+    <figure class="search-word">
       <img src="../assets/images/icon-search.svg" alt="Search" />
     </figure>
   </form>
+  <div *ngIf="word$ | async as word">
+    <div *ngFor="let dictionary of word">
+      <h1>{{ dictionary.word }}</h1>
+    </div>
+  </div>
+  <div
+    class="not-found-content"
+    *ngIf="(word$ | async)?.length === 0 && showNotFoundContent === true"
+  >
+    <div class="not-found">
+      <span>😕</span>
+      <h3>No Definitions Found</h3>
+    </div>
+    <p>
+      Sorry pal, we couldn't find definitions for the word you were looking for.
+      You can try the search again at later time or head to the web instead.
+    </p>
+  </div>
 </main>

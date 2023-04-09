@@ -131,7 +131,6 @@ header {
       right: 20px;
       top: 15px;
       padding: 0.5rem;
-      cursor: pointer;
     }
   }
 }
@@ -162,4 +161,27 @@ header {
   flex-direction: column;
   gap: 1rem;
   width: 183px;
+}
+
+.not-found-content {
+  margin-top: 8.25rem;
+  .not-found {
+    text-align: center;
+    & span {
+      font-size: 3rem;
+    }
+    & h3 {
+      font-weight: 700;
+      font-size: 20px;
+      text-align: center;
+      color: $black-500;
+      margin: 43px 0 24px 0;
+    }
+  }
+  & p {
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    color: $gray-700;
+  }
 }
