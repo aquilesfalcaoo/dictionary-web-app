@@ -203,6 +203,9 @@ header {
         color: $purple;
       }
     }
+    & img {
+      cursor: pointer;
+    }
   }
   .grammar-content {
     & .part-speech {

@@ -16,6 +16,7 @@ export class AppComponent {
     word: new FormControl('', Validators.required),
   });
   public showNotFoundContent: boolean = false;
+  public isDarkMode = false;
 
   constructor(private service: DictionaryService) { }
 
@@ -32,6 +33,11 @@ export class AppComponent {
       body.classList.toggle('black-theme');
     }
   };
+
+  public playAudio = () => {
+    const playSound = document.getElementById('word-audio') as HTMLMediaElement;
+    playSound.play();
+  }
 
   public searchWord = (event: KeyboardEvent) => {
     const wordControl = this.form.get('word');
@@ -54,6 +60,7 @@ export class AppComponent {
       )
       .subscribe(res => {
         this.word$.next(res);
+        console.log(this.word$);
       });
   };
 }
